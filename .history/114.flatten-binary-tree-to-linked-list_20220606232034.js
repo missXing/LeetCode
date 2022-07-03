@@ -18,19 +18,14 @@
  * @return {void} Do not return anything, modify root in-place instead.
  */
 var flatten = function(root) {
-    let curr = root;
-    while (curr !== null) {
-        if (curr.left !== null) {
-            const next = curr.left;
-            let predecessor = next;
-            while (predecessor.right !== null) {
-                predecessor = predecessor.right;
-            }
-            predecessor.right = curr.right;
-            curr.left = null;
-            curr.right = next;
-        }
-        curr = curr.right;
-    }
+  let head = null, curr = root
+  while (head != root) {
+      if (curr.right === head) curr.right = null
+      if (curr.left === head) curr.left = null
+      if (curr.right) curr = curr.right
+      else if (curr.left) curr = curr.left
+      else curr.right = head, head = curr, curr = root
+  }
 };
 // @lc code=end
+
